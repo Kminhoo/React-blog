@@ -1,5 +1,17 @@
+import Footer from "components/Footer";
+import Header from "components/Header";
+import PostList from "components/PostList";
+import Profile from "components/Profile";
+
 const profile = () => {
-  return <h1>Profile Page</h1>
+  return (
+    <>
+      <Header />
+      <Profile />
+      <PostList hasNavigation={false} />
+      <Footer />
+    </>
+  )
 };
 
 export default profile
