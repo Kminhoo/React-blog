@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    // import HomePage from '../pages/home/Homepage' 와 같은 형식들은
+    // 프로젝트의 규모가 커질수록 경로가 복잡해지고 찾기 힘들어지기 때문에 Typescript 
+    // 프로젝트에서는 baseUrl의 절대경로를 사용해서 절대경로로 표시할 수 있따.
+    "baseUrl": "src",
     "target": "es5",
     "lib": [
       "dom",
@@ -20,7 +24,10 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"],
+  // 해당모듈과 해당모듈파일의 경로를 맵핑하는 설정이다.
+  "pahts": {
+    "pages/*": ["pages/*"],
+    "components/*" : ["components/*"]
+  }
 }

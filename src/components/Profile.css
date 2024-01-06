@@ -1,0 +1,46 @@
+/* profile */
+
+.profile__box__inner {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  font-size: 18px;
+  margin: 0 auto;
+  max-width: 680px;
+  text-align: left;
+  line-height: 24px;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.profile__info {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.profile__image {
+  width: 72px;
+  height: 72px;
+  background-color: black;
+  border-radius: 50%;
+}
+
+.profile__name {
+  font-size: 16px;
+  padding-top: 4px;
+}
+
+.profile__email {
+  font-weight: 500;
+}
+
+.profile__logout {
+  color: gray;
+  font-size: 14px;
+}
+
+.profile__logout:hover,
+.profile__logout:focus {
+  color: black;
+}

@@ -1,0 +1,15 @@
+/* header */
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f2f2f2;
+  padding: 10px 40px;
+  min-height: 40px;
+}
+
+.header__inner nav {
+  display: flex;
+  gap: 10px;
+}

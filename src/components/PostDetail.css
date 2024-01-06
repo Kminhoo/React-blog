@@ -1,0 +1,30 @@
+/* post detail */
+.post__detail__inner {
+  min-height: 90vh;
+  padding: 20px;
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: left;
+  line-height: 24px;
+}
+
+.post__detail__inner .post__title {
+  font-size: 36px;
+  line-height: 40px;
+}
+
+.post__detail__inner .post__utils-box {
+  padding: 10px 0px;
+  border-top: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
+  flex-direction: row;
+}
+
+.post__detail_inner .post__profile-box {
+  padding: 10px 0px;
+}
+
+.post__detail__inner .post__text {
+  padding: 20px 0px;
+}
