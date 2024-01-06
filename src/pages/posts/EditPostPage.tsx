@@ -1,7 +1,13 @@
+import Header from "components/Header"
+import PostForm from "components/PostForm"
+
 
 const EditPostPage = () => {
   return (
-    <div>EditPostPage</div>
+    <>
+      <Header />
+      <PostForm />
+    </>
   )
 }
 

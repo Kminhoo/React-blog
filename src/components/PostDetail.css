@@ -14,17 +14,26 @@
   line-height: 40px;
 }
 
-.post__detail__inner .post__utils-box {
+.post__detail__inner .post__utils__box {
   padding: 10px 0px;
   border-top: 1px solid #f2f2f2;
   border-bottom: 1px solid #f2f2f2;
   flex-direction: row;
 }
 
-.post__detail_inner .post__profile-box {
+.post__detail_inner .post__profile___box {
   padding: 10px 0px;
 }
 
 .post__detail__inner .post__text {
   padding: 20px 0px;
+}
+
+.post__modify .modify {
+  color: gray;
+}
+
+.post__modify .modify:hover,
+.post__modify .modify:focus {
+  color: black;
 }

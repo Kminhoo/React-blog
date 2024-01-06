@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import './PostDetail.css'
 
 const PostDetail = () => {
@@ -16,7 +18,9 @@ const PostDetail = () => {
         </div>
 
         <div className="post__utils__box">
-          <div className="post__modify">수정</div>
+          <div className="post__modify">
+            <Link className='modify' to='/posts/edit/1'>수정</Link>
+          </div>
           <div className="post__delete">삭제</div>
         </div>
 
