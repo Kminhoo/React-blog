@@ -13,6 +13,7 @@ code {
 } */
 
 /* common */
+
 * {
   margin: 0;
   padding: 0;
@@ -30,3 +31,5 @@ code {
 .menu__item:focus {
   color: black;
 }
+
+
