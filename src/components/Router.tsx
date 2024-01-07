@@ -1,7 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 
-import { useState } from 'react'
-
 import HomePage from 'pages/home/HomePage'
 import PostDetailPage from 'pages/posts/PostDetailPage'
 import ProfilePage from 'pages/profile/ProfilePage'
@@ -10,9 +8,11 @@ import EditPostPage from 'pages/posts/EditPostPage'
 import LoginPage from 'pages/login/LoginPage'
 import SignupPage from 'pages/signup/SignupPage'
 
-const Router = () => {
+interface RouterProps {
+  isAuthenticated: boolean
+};
 
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
+const Router = ({ isAuthenticated }: RouterProps) => {
 
   return (
     <Routes>

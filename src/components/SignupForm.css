@@ -11,3 +11,7 @@
   text-align: center;
   margin-bottom: 4px;
 }
+
+.form__error {
+  color: red;
+}

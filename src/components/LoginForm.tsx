@@ -18,8 +18,8 @@ const LoginForm = () => {
           </div>
 
           <div className="form__block">
-            <label htmlFor="passward">비밀번호</label>
-            <input type='passward' name="passward" id="passward" required />
+            <label htmlFor="password">비밀번호</label>
+            <input type='password' name="password" id="password" required />
           </div>
 
           <div className="form__block">
