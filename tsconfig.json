@@ -24,6 +24,7 @@
   "include": ["src"],
   "pahts": {
     "pages/*": ["pages/*"],
-    "components/*" : ["components/*"]
+    "components/*" : ["components/*"],
+    "firebaseAPP/*" : ["firebaseAPP/*"]
   }
 }
