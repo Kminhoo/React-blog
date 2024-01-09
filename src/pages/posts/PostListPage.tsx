@@ -1,7 +1,12 @@
+import Header from "components/Header"
+import PostList from "components/PostList"
 
 const PostListPage = () => {
   return (
-    <div>PostListPage</div>
+    <>
+      <Header />
+      <PostList />
+    </>
   )
 }
 

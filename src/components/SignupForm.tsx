@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 import { app } from "firebaseAPP"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
@@ -10,10 +10,12 @@ import './SignupForm.css'
 import { toast } from "react-toastify"
 
 const SignupForm = () => {
-  const [error, setError] = useState<string>("")
-  const [email, setEmail] = useState<string>("")
-  const [password, setPassword] = useState<string>("")
-  const [passwordCheck, setPasswordCheck] = useState<string>("")
+  const [error, setError] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordCheck, setPasswordCheck] = useState<string>("");
+
+  const navigation = useNavigate()
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -31,10 +33,11 @@ const SignupForm = () => {
         progress: undefined,
         theme: "light",
         });
+        navigation('/login')
     } catch (error: any) {
       toast.error(error?.code)
     }
-  }
+  };
 
   const onChange = (e : React.ChangeEvent<HTMLInputElement>) => {
     const { target : { name, value } } = e;
@@ -48,7 +51,7 @@ const SignupForm = () => {
       } else {
         setError("")
       }
-    } 
+    }
 
     if (name === 'password') {
       setPassword(value)
@@ -69,7 +72,7 @@ const SignupForm = () => {
         setError("")
       }
     }
-  }
+  };
 
 
   return (
