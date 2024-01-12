@@ -1,3 +1,6 @@
+import { useContext } from "react"
+import AuthContext from "context/AuthContext"
+
 import { app } from "firebaseAPP"
 import { getAuth, signOut } from "firebase/auth"
 
@@ -8,10 +11,12 @@ import './Profile.css'
 
 const Profile = () => {
 
-  const auth = getAuth(app)
+  // const auth = getAuth(app)
+  const { user } = useContext(AuthContext)
 
   const onClick = async () => {
     try {
+      const auth = getAuth(app)
       await signOut(auth)
       toast.success("성공적으로 로그아웃 되었습니다.")
     } catch (error: any) {
@@ -28,8 +33,8 @@ const Profile = () => {
         <div className="profile__info">
           <div className="profile__image" />
           <div>
-            <div className="profile__email">{auth?.currentUser?.email}</div>
-            <div className="profile__name">{auth?.currentUser?.displayName || '개발자'}</div>
+            <div className="profile__email">{user?.email}</div>
+            <div className="profile__name">{user?.displayName || '개발자'}</div>
           </div>
         </div>
 
