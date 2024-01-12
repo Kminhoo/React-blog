@@ -37,3 +37,4 @@ export const AuthContextProvider = ({ children }: AuthProps) => {
 }
 
 export default AuthContext;
+

@@ -1,6 +1,11 @@
-import { useState } from "react"
+import { useState, useEffect, useContext } from "react"
+
+import AuthContext from "context/AuthContext"
 
 import { Link } from "react-router-dom"
+
+import { collection, getDocs } from "firebase/firestore"
+import { db } from "firebaseAPP"
 
 import './PostList.css'
 
@@ -8,11 +13,36 @@ interface postListPrors {
   hasNavigation? : boolean
 }
 
+export interface PostProps {
+  id?: string,
+  title : string,
+  summary : string,
+  content : string,
+  createAt : string,
+  email : string
+}
+
 type TabType = 'all' | "my"
 
 const PostList = ({ hasNavigation = true }: postListPrors) => {
 
   const [activeTab, setActiveTab] = useState<TabType>('all')
+  const [posts, setPosts] = useState<PostProps[]>([])
+  const { user } = useContext(AuthContext)
+
+  const getPosts = async () => {
+    const datas = await getDocs(collection(db, 'posts'))
+
+    datas?.forEach((data) => {
+      const dataObj = { ...data.data(), id : data.id}
+      setPosts((prev) => [...prev, dataObj as PostProps])
+    })
+  }
+
+
+  useEffect(() => {
+    getPosts()
+  }, [])
 
   return (
   <>
@@ -34,37 +64,33 @@ const PostList = ({ hasNavigation = true }: postListPrors) => {
     <div className="post__list">
       <div className="post__list__inner">
 
-        {[...Array(10)].map((e, index) => (
-          <div className="post__box" key={index}> {/* 키값을 주어야 하는이유 */}
-            <Link to={`/posts/${index}`}>
+        {posts?.length > 0 ? posts.map((post, index) => (
+          <div className="post__box" key={post?.id}> {/* 키값을 주어야 하는이유 */}
+            <Link to={`/posts/${post?.id}`}>
               <div className="post__title">
-                게시글 {index}
+                {post?.title}
               </div>
 
               <div className="post__text">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-                sed do eiusmod tempor incididunt ut labore et dolore magna 
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-                ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                Duis aute irure dolor in reprehenderit in voluptate velit 
-                esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-                occaecat cupidatat non proident, sunt in culpa qui officia 
-                deserunt mollit anim id est laborum.
+                {post?.summary}
               </div>
 
               <div className="post__profile__box">
                 <div className="post__profile"></div>
-                <div className="post__author--name">작성자</div>
-                <div className="post__date">2024.01.05 금요일</div>
-              </div>
-
-              <div className="post__utils__box">
-                <div className="post__modify">수정</div>
-                <div className="post__delete">삭제</div>
+                <div className="post__author--name">{post?.email}</div>
+                <div className="post__date">{post?.createAt}</div>
               </div>
             </Link>
+              {post?.email === user?.email && (
+                <div className="post__utils__box">
+                  <div className="post__modify">
+                    <Link className='modify' to={`/posts/edit/${post?.id}`}>수정</Link>
+                  </div>
+                  <div className="post__delete">삭제</div>
+                </div>
+              )}
           </div>
-        ))}
+        )): <div className="post__no--post">게시글이 없습니다.</div>}
 
       </div>
     </div>

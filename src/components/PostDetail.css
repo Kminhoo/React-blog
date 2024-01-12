@@ -37,3 +37,7 @@
 .post__modify .modify:focus {
   color: black;
 }
+
+.post__text--pre-wrap {
+  white-space: pre-wrap;
+}
