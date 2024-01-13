@@ -49,7 +49,7 @@ const PostDetail = () => {
 
             <div className="post__utils__box">
               <div className="post__modify">
-                <Link className='modify' to={`/post/edit/${post?.id}`}>수정</Link>
+                <Link className='modify' to={`/posts/edit/${post?.id}`}>수정</Link>
               </div>
               <div className="post__delete">삭제</div>
             </div>
