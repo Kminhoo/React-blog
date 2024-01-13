@@ -4,10 +4,11 @@ import AuthContext from "context/AuthContext"
 
 import { Link } from "react-router-dom"
 
-import { collection, getDocs } from "firebase/firestore"
+import { collection, deleteDoc, getDocs, doc } from "firebase/firestore"
 import { db } from "firebaseAPP"
 
 import './PostList.css'
+import { toast } from "react-toastify"
 
 interface postListPrors {
   hasNavigation? : boolean
@@ -35,10 +36,22 @@ const PostList = ({ hasNavigation = true }: postListPrors) => {
   const getPosts = async () => {
     const datas = await getDocs(collection(db, 'posts'))
 
+    setPosts([]) // 게시글 초기화
+
     datas?.forEach((data) => {
       const dataObj = { ...data.data(), id : data.id}
       setPosts((prev) => [...prev, dataObj as PostProps])
     })
+  }
+
+  const handleDelete = async (id: string) => {
+    const confirm = window.confirm("해당 게시글을 삭제하시겠습니까?")
+
+    if(confirm && id) {
+      await deleteDoc(doc(db, 'posts', id))
+      toast.success("게시글을 성공적으로 삭제했습니다.")
+      getPosts()
+    }
   }
 
 
@@ -88,7 +101,13 @@ const PostList = ({ hasNavigation = true }: postListPrors) => {
                   <div className="post__modify">
                     <Link className='modify' to={`/posts/edit/${post?.id}`}>수정</Link>
                   </div>
-                  <div className="post__delete">삭제</div>
+                  <div 
+                    role='presentation' 
+                    className="post__delete"
+                    onClick={() => handleDelete(post?.id as string)}
+                  >
+                    삭제
+                  </div>
                 </div>
               )}
           </div>

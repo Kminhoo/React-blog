@@ -1,20 +1,23 @@
 import { useState, useEffect } from 'react';
 
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 
 import { PostProps } from './PostList';
 
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from 'firebaseAPP';
 
 import Loader from './Loader';
 
 import './PostDetail.css'
+import { toast } from 'react-toastify';
 
 const PostDetail = () => {
   const [post, setPost] = useState<PostProps | null >(null);
 
   const params = useParams();
+
+  const navigation = useNavigate();
 
   const getPostDetail = async (id:string) => {
     if(id) {
@@ -24,10 +27,19 @@ const PostDetail = () => {
     }
   }
 
-  useEffect(() => {
-    if(params.id) {
-      getPostDetail(params?.id)
+  const handleDelete = async  () => {
+    const confirm = window.confirm("정말 삭제하시겠습니까?")
+
+    if(confirm && post?.id) {
+      await deleteDoc(doc(db, 'posts', post?.id ))
+
+      toast.success("게시글을 삭제 했습니다.")
+      navigation('/')
     }
+  }
+
+  useEffect(() => {
+    if(params.id) getPostDetail(params?.id)
   }, [params?.id])
 
 
@@ -51,7 +63,7 @@ const PostDetail = () => {
               <div className="post__modify">
                 <Link className='modify' to={`/posts/edit/${post?.id}`}>수정</Link>
               </div>
-              <div className="post__delete">삭제</div>
+              <div onClick={handleDelete} className="post__delete">삭제</div>
             </div>
 
             <div className="post__text post__text--pre-wrap">
