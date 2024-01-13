@@ -60,6 +60,9 @@ const PostDetail = () => {
             </div>
 
             <div className="post__utils__box">
+              {post?.category && (
+                <div className='post__category'>{post?.category}</div>
+              )}
               <div className="post__modify">
                 <Link className='modify' to={`/posts/edit/${post?.id}`}>수정</Link>
               </div>

@@ -41,3 +41,12 @@
 .post__text--pre-wrap {
   white-space: pre-wrap;
 }
+
+.post__category {
+  color: gray;
+  padding: 0 4px;
+  font-size: 12px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  background-color: #f2f2f2;
+}

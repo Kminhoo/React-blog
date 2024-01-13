@@ -4,15 +4,21 @@ import AuthContext from "context/AuthContext"
 
 import { Link } from "react-router-dom"
 
-import { collection, deleteDoc, getDocs, doc } from "firebase/firestore"
+import { collection, deleteDoc, getDocs, doc, query, orderBy, where } from "firebase/firestore"
 import { db } from "firebaseAPP"
 
 import './PostList.css'
 import { toast } from "react-toastify"
 
+type TabType = 'all' | "my"
+
 interface postListPrors {
-  hasNavigation? : boolean
+  hasNavigation? : boolean,
+  defaultTab? : TabType | CategoryType
 }
+
+export type CategoryType = 'Frontend' | 'BackEnd' | 'Web' | 'Native' ;
+export const CATEGORIES: CategoryType[] = ['Frontend', 'BackEnd', 'Web', 'Native'];
 
 export interface PostProps {
   id?: string,
@@ -22,19 +28,35 @@ export interface PostProps {
   createAt : string,
   email : string,
   updatedAt? : string,
-  uid? : string
+  uid? : string,
+  category? : CategoryType
 }
 
-type TabType = 'all' | "my"
 
-const PostList = ({ hasNavigation = true }: postListPrors) => {
+const PostList = ({ hasNavigation = true, defaultTab = "all" }: postListPrors) => {
 
-  const [activeTab, setActiveTab] = useState<TabType>('all')
+  const [activeTab, setActiveTab] = useState<TabType | CategoryType>(defaultTab)
   const [posts, setPosts] = useState<PostProps[]>([])
   const { user } = useContext(AuthContext)
 
   const getPosts = async () => {
-    const datas = await getDocs(collection(db, 'posts'))
+    // const datas = await getDocs(collection(db, 'posts'))
+
+    let postRef = collection(db, 'posts') 
+    console.log('postRef = ', postRef) //posts 콜렉션 전체를 참조하는 것
+    let postsQuery;
+    console.log('postsQuery = ', postsQuery) // 참조된 컬렉션을 orderby를 통해 정리하는 것
+
+    if(activeTab === "my" && user?.uid) {
+      postsQuery =  query(postRef, where("uid", "==", user?.uid), orderBy('createAt', 'desc'))
+      // where(필드명, 같다, 필드값)
+    } else if (activeTab === 'all'){
+      postsQuery = query(postRef, orderBy('createAt', 'desc'))
+    } else {
+      postsQuery = query(postRef, where("category", "==", activeTab), orderBy('createAt', 'desc'))
+    }
+
+    const datas = await getDocs(postsQuery)
 
     setPosts([]) // 게시글 초기화
 
@@ -57,7 +79,7 @@ const PostList = ({ hasNavigation = true }: postListPrors) => {
 
   useEffect(() => {
     getPosts()
-  }, [])
+  }, [activeTab])
 
   return (
   <>
@@ -67,12 +89,25 @@ const PostList = ({ hasNavigation = true }: postListPrors) => {
           role='presentation' 
           onClick={() => setActiveTab('all')}
           className={activeTab === 'all' ? 'post__text--show' : ''}
-        >전체 글</div>
+        >
+          전체 글
+        </div>
         <div 
           role='presentation' 
           onClick={() => setActiveTab('my')}
           className={activeTab === 'my' ? 'post__text--show' : ''}
-        >나의 글</div>
+        >나의 글
+        </div>
+        {CATEGORIES?.map((category) => (
+          <div 
+          key={category}
+          role='presentation' 
+          onClick={() => setActiveTab(category)}
+          className={activeTab === category ? 'post__text--show' : ''}
+          >
+            {category}
+          </div>
+        ))}
       </div>
     )}
 

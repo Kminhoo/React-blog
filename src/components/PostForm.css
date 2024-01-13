@@ -31,6 +31,14 @@
   margin-top: 20px;
 }
 
+.form select {
+  border: 1px solid lightgray;
+  border-radius: 0.3rem;
+  padding: 0 20px;
+  max-width: 680px;
+  height: 40px;
+}
+
 .form label {
   display: block;
   font-weight: 600;

@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 
 import './PostForm.css'
 
-import { PostProps } from './PostList';
+import { CATEGORIES, CategoryType, PostProps } from './PostList';
 
 
 const PostForm = () => {
@@ -19,6 +19,7 @@ const PostForm = () => {
   const [title, setTitle] = useState<string>("");
   const [summary, setSummary] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [category, setCategory] = useState<CategoryType>('Frontend');
   const params = useParams();
 
   const { user } = useContext(AuthContext);
@@ -37,7 +38,12 @@ const PostForm = () => {
           title,
           summary,
           content,
-          updatedAt: new Date()?.toLocaleDateString(),
+          updatedAt: new Date()?.toLocaleDateString("ko", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+          }),
+          category
         })
 
         toast.success("게시글이 성공적으로 수정되었습니다.")
@@ -47,9 +53,14 @@ const PostForm = () => {
           title,
           summary,
           content,
-          createAt: new Date()?.toLocaleDateString(),
+          createAt: new Date()?.toLocaleDateString("ko", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+          }),
           email: user?.email,
-          uid: user?.uid
+          uid: user?.uid,
+          category
         })
   
         toast.success("게시글을 성공적으로 작성했습니다.")
@@ -60,7 +71,7 @@ const PostForm = () => {
     }
   };
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement >) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement >) => {
     const { target : { name, value }} = e;
 
     if (name === 'title') {
@@ -73,6 +84,10 @@ const PostForm = () => {
 
     if (name === 'content') {
       setContent(value)
+    }
+
+    if (name === 'category') {
+      setCategory(value as CategoryType)
     }
   };
 
@@ -93,6 +108,7 @@ const PostForm = () => {
       setTitle(post?.title)
       setSummary(post?.summary)
       setContent(post?.content)
+      setCategory(post?.category as CategoryType)
     }
   }, [post])
 
@@ -112,6 +128,21 @@ const PostForm = () => {
               required 
               value={title}
             />
+          </div>
+
+          <div className="form__block">
+            <label htmlFor="category">카테고리</label>
+            <select 
+              name='category' 
+              id='category' 
+              onChange={onChange}
+              defaultValue="카테고리를 선택해 주세요."
+            >
+              <option value="">카테고리를 선택해 주세요.</option>
+              {CATEGORIES?.map((category) => (
+                <option key={category} value={category}>{category}</option>
+              ))}
+            </select>
           </div>
 
           <div className="form__block">
