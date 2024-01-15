@@ -30,4 +30,45 @@ code {
   color: black;
 }
 
+.white {
+  transition: all 0.3s linear;
+  background-color: white;
+}
 
+.dark {
+  transition: all 0.3s linear;
+  background-color: #1e2937;
+  min-height: 100vh;
+}
+
+.dark a,
+.dark .form label,
+.dark .post__delete,
+.dark .profile__logout,
+.dark .form__title,
+.dark .form__block,
+.dark .post__title,
+.dark .post__text,
+.dark .post__text--show,
+.dark .post__author--name,
+.dark .post__date,
+.dark .post__modify .modify,
+.dark .profile__email,
+.dark .profile__name,
+.dark .header__theme--btn {
+  color: white;
+}
+
+.dark a:hover,
+.dark a:focus {
+  color: lightgray;
+}
+
+.dark .header__inner,
+.dark .footer__inner {
+  background-color: #111827;
+}
+
+.dark .form__error {
+  color: #ff6a71;
+}

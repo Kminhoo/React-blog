@@ -43,9 +43,9 @@ const PostList = ({ hasNavigation = true, defaultTab = "all" }: postListPrors) =
     // const datas = await getDocs(collection(db, 'posts'))
 
     let postRef = collection(db, 'posts') 
-    console.log('postRef = ', postRef) //posts 콜렉션 전체를 참조하는 것
+    //console.log('postRef = ', postRef) //posts 콜렉션 전체를 참조하는 것
     let postsQuery;
-    console.log('postsQuery = ', postsQuery) // 참조된 컬렉션을 orderby를 통해 정리하는 것
+    //console.log('postsQuery = ', postsQuery) // 참조된 컬렉션을 orderby를 통해 정리하는 것
 
     if(activeTab === "my" && user?.uid) {
       postsQuery =  query(postRef, where("uid", "==", user?.uid), orderBy('createAt', 'desc'))
@@ -114,7 +114,7 @@ const PostList = ({ hasNavigation = true, defaultTab = "all" }: postListPrors) =
     <div className="post__list">
       <div className="post__list__inner">
 
-        {posts?.length > 0 ? posts.map((post, index) => (
+        {posts?.length > 0 ? posts.map((post) => (
           <div className="post__box" key={post?.id}> {/* 키값을 주어야 하는이유 */}
             <Link to={`/posts/${post?.id}`}>
               <div className="post__title">
