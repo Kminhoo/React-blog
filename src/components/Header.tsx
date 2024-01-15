@@ -12,8 +12,6 @@ import './Header.css'
 const Header = () => {
   const themeContext = useContext(ThemeContext);
 
-  console.log(themeContext)
-
   return (
     <header>
       <div className="header__inner">
