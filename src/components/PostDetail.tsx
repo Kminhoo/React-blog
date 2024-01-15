@@ -8,6 +8,7 @@ import { doc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from 'firebaseAPP';
 
 import Loader from './Loader';
+import Comments from './Comments';
 
 import './PostDetail.css'
 import { toast } from 'react-toastify';
@@ -72,6 +73,9 @@ const PostDetail = () => {
             <div className="post__text post__text--pre-wrap">
               {post?.content}
             </div>
+
+            {/* comment  */}
+            <Comments post={post} getPostDetail={getPostDetail}/>
           </>
         ) : <Loader />}
 

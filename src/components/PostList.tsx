@@ -20,6 +20,13 @@ interface postListPrors {
 export type CategoryType = 'Frontend' | 'BackEnd' | 'Web' | 'Native' ;
 export const CATEGORIES: CategoryType[] = ['Frontend', 'BackEnd', 'Web', 'Native'];
 
+export interface CommentInterface {
+  content: string,
+  email: string,
+  createAt: string,
+  uid: string
+}
+
 export interface PostProps {
   id?: string,
   title : string,
@@ -29,7 +36,8 @@ export interface PostProps {
   email : string,
   updatedAt? : string,
   uid? : string,
-  category? : CategoryType
+  category? : CategoryType,
+  comments?: CommentInterface[]
 }
 
 
